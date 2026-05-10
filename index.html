@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title></title>
+
+<link rel="icon" type="image/svg+xml"
+href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+<circle cx='50' cy='50' r='45' fill='%23ffffff'/>
+<text x='50%' y='62%' text-anchor='middle'
+font-size='42' font-family='Arial'
+fill='black'>A</text>
+</svg>">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: none;
+  user-select: none;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+}
+
+/* CLICK TO ENTER */
+#enter-gate {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#enter-text {
+  font-size: 1.4rem;
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255,255,255,0.6);
+  animation: pulse 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+/* BACKGROUND */
+#bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -3;
+  filter: brightness(0.5)
+}
+
+.blur-layer {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(3px);
+  z-index: -2;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: -1;
+}
+
+/* CONTENT */
+.content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  padding: 40px 60px;
+  border-radius: 22px;
+  box-shadow: 0 0 40px rgba(255,255,255,0.15);
+
+  /* Start hidden above screen */
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+.content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 0 25px rgba(255,255,255,0.35);
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  text-shadow: 0 0 15px rgba(255,255,255,0.6);
+}
+
+/* ANIMATED TEXT */
+.animated-text {
+  font-size: 1em;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.4);
+  opacity: 0;
+}
+
+/* LINKS */
+.links a {
+  display: block;
+  width: 200px;
+  margin: 10px auto;
+  padding: 12px 25px;
+  border-radius: 25px;
+  color: white;
+  text-decoration: none;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 12px rgba(255,255,255,0.25);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.links a:hover {
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 0 25px rgba(255,255,255,0.7);
+}
+
+/* PARTICLES */
+#particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 0 10px rgba(255,255,255,0.8);
+  animation: explode 700ms ease-out forwards;
+}
+
+@keyframes explode {
+  to {
+    transform: translate(var(--x), var(--y)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* CURSOR */
+#cursor {
+  position: fixed;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, white 0%, transparent 70%);
+  box-shadow: 0 0 18px rgba(255,255,255,0.9);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+</style>
+</head>
+
+<body>
+
+<div id="enter-gate"><div id="enter-text">CLICK TO ENTER</div></div>
+
+<video id="bg-video" autoplay muted loop>
+  <source src="yourvideo.mp4" type="video/mp4">
+</video>
+
+<div class="blur-layer"></div>
+<div class="overlay"></div>
+
+<div id="particles"></div>
+
+<div class="content">
+  <img src="profile.jpg" class="avatar">
+  <h1>@lia</h1>
+  <div class="animated-text"></div>
+  <div class="links">
+    <a href="https://discord.gg/xe-no">Discord</a>
+    <a href="https://www.roblox.com/users/3315404813/profile">Roblox</a>
+    <a href="ewmel">Discord User (Hover)</a>
+  </div>
+</div>
+
+<div id="cursor"></div>
+
+<audio id="bg-audio" loop>
+  <source src="youraudio.mp3" type="audio/mp3">
+</audio>
+
+<script>
+/* CLICK TO ENTER */
+const gate = document.getElementById("enter-gate");
+const audio = document.getElementById("bg-audio");
+const content = document.querySelector(".content");
+
+gate.onclick = async () => {
+  gate.style.opacity = "0";
+  setTimeout(() => gate.remove(), 400);
+
+  // Fade in audio
+  audio.volume = 0;
+  await audio.play();
+  let v = 0;
+  const fade = setInterval(() => {
+    v += 0.05;
+    audio.volume = Math.min(v, 0.8);
+    if (v >= 0.8) clearInterval(fade);
+  }, 50);
+
+  // Show content with slide-down animation
+  setTimeout(() => content.classList.add("show"), 200);
+};
+
+/* TAB TITLE TYPE — STOPS BACKSPACING AT @ */
+const titles = ["@lia", "@ewmel 🤍"];
+let ti = 0, ci = 1, typing = true;
+
+(function loopTitle() {
+  const txt = titles[ti];
+
+  if (typing) {
+    ci++;
+    if (ci > txt.length) {
+      typing = false;
+      setTimeout(loopTitle, 1200);
+      return;
+    }
+  } else {
+    ci--;
+    if (ci <= 1) {
+      typing = true;
+      ti = (ti + 1) % titles.length;
+      ci = 1;
+    }
+  }
+
+  document.title = txt.slice(0, ci);
+  setTimeout(loopTitle, typing ? 120 : 80);
+})();
+
+/* CURSOR */
+const cursor = document.getElementById("cursor");
+document.addEventListener("mousemove", e => {
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+});
+
+/* PARTICLE EXPLOSION ON CLICK */
+const particles = document.getElementById("particles");
+document.addEventListener("click", e => {
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement("div");
+    p.className = "particle";
+
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 60 + 20;
+
+    p.style.left = e.clientX + "px";
+    p.style.top = e.clientY + "px";
+    p.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
+    p.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
+
+    particles.appendChild(p);
+    setTimeout(() => p.remove(), 700);
+  }
+});
+
+/* ANIMATED TEXT */
+const textEl = document.querySelector(".animated-text");
+const lines = [
+  "I'm not going to stop the wheel.",
+  "I'm going to break the wheel."
+];
+let line = 0;
+
+function typeLine() {
+  textEl.textContent = "";
+  textEl.style.opacity = "1";
+  let i = 0;
+
+  const type = setInterval(() => {
+    textEl.textContent += lines[line][i];
+    i++;
+    if (i >= lines[line].length) {
+      clearInterval(type);
+      setTimeout(fadeOut, 900);
+    }
+  }, 55);
+}
+
+function fadeOut() {
+  let o = 1;
+  const fade = setInterval(() => {
+    o -= 0.04;
+    textEl.style.opacity = o;
+    if (o <= 0) {
+      clearInterval(fade);
+      line = (line + 1) % lines.length;
+      setTimeout(typeLine, 400);
+    }
+  }, 30);
+}
+
+typeLine();
+
+/* PARALLAX */
+let mx=0,my=0,cx=0,cy=0;
+const bg = document.getElementById("bg-video");
+
+document.addEventListener("mousemove", e => {
+  mx = (e.clientX / innerWidth - 0.5) * 2;
+  my = (e.clientY / innerHeight - 0.5) * 2;
+});
+
+(function animate() {
+  cx += (mx - cx) * 0.05;
+  cy += (my - cy) * 0.05;
+  bg.style.transform =
+    `translate(${cx*15}px, ${cy*15}px) scale(1.05)`;
+  requestAnimationFrame(animate);
+})();
+</script>
+
+</body>
+</html>
